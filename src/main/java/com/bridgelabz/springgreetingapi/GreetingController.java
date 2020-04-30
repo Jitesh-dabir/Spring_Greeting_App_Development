@@ -20,4 +20,9 @@ public class GreetingController {
     public Greeting greetingWithUserName(@RequestParam(value = "name", defaultValue = "World") String name) {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
+
+    @GetMapping(value = {"/param/{name}"})
+    public Greeting greetingWithPathVariableUserName(@PathVariable(value = "name") String name) {
+        return new Greeting(counter.incrementAndGet(), String.format(template, name));
+    }
 }
