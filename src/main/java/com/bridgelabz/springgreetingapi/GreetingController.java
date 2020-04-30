@@ -29,7 +29,12 @@ public class GreetingController {
     @PostMapping("/post")
     public Greeting greetingWithRequestBodyUserName(@RequestBody Person person) {
         String template = "Hello, %s %s!";
-        System.out.println(person.getFirstName()+""+person.getLastName());
-        return new Greeting(counter.incrementAndGet(), String.format(template, person.getFirstName(),person.getLastName()));
+        return new Greeting(counter.incrementAndGet(), String.format(template, person.getFirstName(), person.getLastName()));
+    }
+
+    @PutMapping("/put/{firstName}")
+    public Greeting greetingPathVariableAndRequestParam(@PathVariable String firstName, @RequestParam(value = "lastName") String lastName) {
+        String template = "Hello, %s %s!";
+        return new Greeting(counter.incrementAndGet(), String.format(template, firstName, lastName));
     }
 }
