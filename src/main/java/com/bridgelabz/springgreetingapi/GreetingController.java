@@ -25,4 +25,11 @@ public class GreetingController {
     public Greeting greetingWithPathVariableUserName(@PathVariable(value = "name") String name) {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
+
+    @PostMapping("/post")
+    public Greeting greetingWithRequestBodyUserName(@RequestBody Person person) {
+        String template = "Hello, %s %s!";
+        System.out.println(person.getFirstName()+""+person.getLastName());
+        return new Greeting(counter.incrementAndGet(), String.format(template, person.getFirstName(),person.getLastName()));
+    }
 }
