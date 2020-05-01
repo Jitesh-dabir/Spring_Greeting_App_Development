@@ -1,5 +1,5 @@
 package com.bridgelabz.springgreetingapi;
 
 public interface IGreetingService {
-    public String greet(String name);
+    public String greet(String firstName, String lastName);
 }
