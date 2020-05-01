@@ -43,7 +43,7 @@ public class GreetingController {
     }
 
     @RequestMapping(value = {"/getGreeting"}, method = RequestMethod.GET)
-    public String getGreeting(@RequestParam(defaultValue = "World") String name) {
-        return service.greet(name);
+    public String getGreeting(@RequestParam(value = "firstName", required = false) String firstName,@RequestParam(value = "lastName", required = false) String lastName) {
+        return service.greet(firstName,lastName);
     }
 }
