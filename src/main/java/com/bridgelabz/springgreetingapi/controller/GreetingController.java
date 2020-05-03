@@ -2,11 +2,12 @@ package com.bridgelabz.springgreetingapi.controller;
 
 import com.bridgelabz.springgreetingapi.dto.Greeting;
 import com.bridgelabz.springgreetingapi.dto.UserDTO;
+import com.bridgelabz.springgreetingapi.model.User;
 import com.bridgelabz.springgreetingapi.service.GreetingServiceImpl;
-import com.bridgelabz.springgreetingapi.service.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
@@ -14,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class GreetingController {
 
     @Autowired
-    private GreetingServiceImpl GreetingService;
+    private GreetingServiceImpl greetingService;
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
@@ -48,6 +49,11 @@ public class GreetingController {
 
     @PostMapping("/getGreeting")
     public UserDTO register(@RequestBody UserDTO userDTO) {
-        return GreetingService.greet(userDTO);
+        return greetingService.greet(userDTO);
+    }
+
+    @RequestMapping("/getGreetingById/{userId}")
+    public Optional<User> findGreeting(@PathVariable Long userId) {
+        return greetingService.findGreetingById(userId);
     }
 }
