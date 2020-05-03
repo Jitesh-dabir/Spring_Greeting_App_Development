@@ -1,4 +1,4 @@
-package com.bridgelabz.springgreetingapi;
+package com.bridgelabz.springgreetingapi.dto;
 
 public class Greeting {
     private final long incrementAndGet;
