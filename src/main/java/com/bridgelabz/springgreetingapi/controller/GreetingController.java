@@ -1,7 +1,10 @@
-package com.bridgelabz.springgreetingapi;
+package com.bridgelabz.springgreetingapi.controller;
 
+import com.bridgelabz.springgreetingapi.dto.Greeting;
+import com.bridgelabz.springgreetingapi.dto.UserDTO;
+import com.bridgelabz.springgreetingapi.service.GreetingServiceImpl;
+import com.bridgelabz.springgreetingapi.service.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -11,7 +14,8 @@ import java.util.concurrent.atomic.AtomicLong;
 public class GreetingController {
 
     @Autowired
-    private GreetingServiceImpl service;
+    private GreetingServiceImpl GreetingService;
+
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
@@ -31,9 +35,9 @@ public class GreetingController {
     }
 
     @PostMapping("/post")
-    public Greeting greetingWithRequestBodyUserName(@RequestBody Person person) {
+    public Greeting greetingWithRequestBodyUserName(@RequestBody UserDTO user) {
         String template = "Hello, %s %s!";
-        return new Greeting(counter.incrementAndGet(), String.format(template, person.getFirstName(), person.getLastName()));
+        return new Greeting(counter.incrementAndGet(), String.format(template, user.getFirstName(), user.getLastName()));
     }
 
     @PutMapping("/put/{firstName}")
@@ -42,8 +46,8 @@ public class GreetingController {
         return new Greeting(counter.incrementAndGet(), String.format(template, firstName, lastName));
     }
 
-    @RequestMapping(value = {"/getGreeting"}, method = RequestMethod.GET)
-    public String getGreeting(@RequestParam(value = "firstName", required = false) String firstName,@RequestParam(value = "lastName", required = false) String lastName) {
-        return service.greet(firstName,lastName);
+    @PostMapping("/getGreeting")
+    public UserDTO register(@RequestBody UserDTO userDTO) {
+        return GreetingService.greet(userDTO);
     }
 }
