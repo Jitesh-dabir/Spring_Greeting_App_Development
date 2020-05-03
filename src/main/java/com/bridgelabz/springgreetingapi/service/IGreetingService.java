@@ -1,5 +1,9 @@
-package com.bridgelabz.springgreetingapi;
+package com.bridgelabz.springgreetingapi.service;
+
+import com.bridgelabz.springgreetingapi.dto.UserDTO;
+import org.springframework.stereotype.Service;
+
 
 public interface IGreetingService {
-    public String greet(String firstName, String lastName);
+    public UserDTO greet(UserDTO userDTO);
 }

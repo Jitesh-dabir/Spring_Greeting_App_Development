@@ -1,20 +1,35 @@
-package com.bridgelabz.springgreetingapi;
+package com.bridgelabz.springgreetingapi.service;
 
+import com.bridgelabz.springgreetingapi.dto.UserDTO;
+import com.bridgelabz.springgreetingapi.model.User;
+import com.bridgelabz.springgreetingapi.repository.UserRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GreetingServiceImpl implements IGreetingService {
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private UserRepository userRepository;
+
     private static final String template = "Hello world!";
 
-    public String greet(String firstName, String lastName) {
-        if (firstName == null && lastName == null)
-            return template;
-        else if (lastName == null)
-            return template.replace("world", firstName);
-        else if (firstName == null)
-            return template.replace("world", lastName);
-        return template.replace("world", firstName + " " + lastName);
-
+    @Override
+    public UserDTO greet(UserDTO userDTO) {
+        if (userDTO.getFirstName() == null && userDTO.getLastName() == null)
+            userDTO.setUserGreeting(template);
+        else if (userDTO.getLastName() == null)
+            userDTO.setUserGreeting(template.replace("world", userDTO.getFirstName()));
+        else if (userDTO.getFirstName() == null)
+            userDTO.setUserGreeting(template.replace("world", userDTO.getLastName()));
+        userDTO.setUserGreeting(template.replace("world", userDTO.getFirstName() + " " + userDTO.getLastName()));
+        User regUser = modelMapper.map(userDTO, User.class);
+        userRepository.save(regUser);
+        userDTO.setId(regUser.getId());
+        return userDTO;
     }
 }
