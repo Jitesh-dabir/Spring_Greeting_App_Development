@@ -13,4 +13,6 @@ public interface IGreetingService {
     public Optional<User> findGreetingById(Long userDTO);
 
     public List<User> findAllGreeting();
+
+    public Optional<User> updateGreeting(Long userId);
 }

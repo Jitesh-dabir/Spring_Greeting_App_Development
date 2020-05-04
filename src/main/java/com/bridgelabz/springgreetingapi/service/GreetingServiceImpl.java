@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.Registration;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,5 +46,13 @@ public class GreetingServiceImpl implements IGreetingService {
     @Override
     public List<User> findAllGreeting() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public Optional<User> updateGreeting(Long userId) {
+        User user = userRepository.findById(userId).get();
+        user.setUserGreeting("Hello this greeting is updated");
+        userRepository.save(user);
+        return userRepository.findById(userId);
     }
 }
