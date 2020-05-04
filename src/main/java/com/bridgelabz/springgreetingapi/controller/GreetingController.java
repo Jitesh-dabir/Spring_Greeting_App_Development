@@ -53,14 +53,19 @@ public class GreetingController {
         return greetingService.greet(userDTO);
     }
 
-    @RequestMapping("/getGreetingById/{userId}")
+    @GetMapping("/getGreetingById/{userId}")
     public Optional<User> findGreeting(@PathVariable Long userId) {
         return greetingService.findGreetingById(userId);
     }
 
-    @RequestMapping("/allGreetings")
-    public List<User> findCities() {
+    @GetMapping("/allGreetings")
+    public List<User> findAllGreeting() {
         return (List<User>) greetingService.findAllGreeting();
 
+    }
+
+    @PutMapping("/updateGreeting/{userId}")
+    public Optional<User> updateGreeting(@PathVariable Long userId) {
+        return greetingService.updateGreeting(userId);
     }
 }
