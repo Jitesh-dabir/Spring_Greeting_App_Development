@@ -15,4 +15,6 @@ public interface IGreetingService {
     public List<User> findAllGreeting();
 
     public Optional<User> updateGreeting(Long userId);
+
+    public List<User> deleteGreeting(Long userId);
 }

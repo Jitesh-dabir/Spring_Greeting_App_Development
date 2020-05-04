@@ -55,4 +55,11 @@ public class GreetingServiceImpl implements IGreetingService {
         userRepository.save(user);
         return userRepository.findById(userId);
     }
+
+    @Override
+    public List<User> deleteGreeting(Long userId) {
+        User user = userRepository.findById(userId).get();
+        userRepository.delete(user);
+        return userRepository.findAll();
+    }
 }
