@@ -68,4 +68,9 @@ public class GreetingController {
     public Optional<User> updateGreeting(@PathVariable Long userId) {
         return greetingService.updateGreeting(userId);
     }
+
+    @DeleteMapping(value = {"deleteGreeting"})
+    public List<User> deleteGreeting(@RequestParam(value = "userId") Long userId) {
+        return greetingService.deleteGreeting(userId);
+    }
 }
